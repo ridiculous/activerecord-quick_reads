@@ -71,6 +71,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  ruby
 
 DEPENDENCIES
   activerecord-quick_read!
