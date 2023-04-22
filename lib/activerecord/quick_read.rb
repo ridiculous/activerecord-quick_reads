@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "active_record"
 
 require_relative "quick_read/version"
