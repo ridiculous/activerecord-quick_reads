@@ -22,6 +22,8 @@ module ActiveRecord
       return if !model.table_name || model.abstract_class
 
       QuickRead.define_lite_struct(model)
+    rescue => e
+      ActiveRecord::Base.logger.debug("QuickRead") { "Failed to define quick models #{e.message}" }
     end
 
     def self.models
