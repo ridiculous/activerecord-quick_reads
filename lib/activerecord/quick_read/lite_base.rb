@@ -13,7 +13,7 @@ module ActiveRecord
 
       def reload(*)
         source = @_ar_instance&.reload
-        source ||= _ar_model.unscoped.where(id: id).select(members.join(', ')).quick_read
+        source ||= _ar_model.unscoped.where(id: id).quick_read
         return false unless source
 
         members.each { |attr| send(:"#{attr}=", source.send(attr)) }
