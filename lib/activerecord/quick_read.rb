@@ -3,6 +3,7 @@
 require "active_record"
 
 require_relative "quick_read/version"
+require_relative "quick_read/lite_base"
 require_relative "quick_read/railtie" if defined?(Rails)
 
 module ActiveRecord
@@ -73,27 +74,6 @@ module ActiveRecord
     # @return ApplicationRecord subclass
     def from_hash(attributes)
       allocate.init_with_attributes(attributes_builder.build_from_database(attributes.stringify_keys!))
-    end
-
-    module LiteBase
-      def method_missing(name, *args, &block)
-        return super unless subject.respond_to?(name)
-
-        subject.send(name, *args, &block)
-      end
-
-      def respond_to_missing?(*args)
-        subject.respond_to?(*args) || super
-      end
-
-      def subject
-        @subject ||= model.from_hash(to_h)
-      end
-
-      # Since the struct that includes this module is defined within the model's namespace
-      def model
-        self.class.module_parent
-      end
     end
   end
 end
