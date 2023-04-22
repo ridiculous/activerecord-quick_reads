@@ -2,6 +2,7 @@
 require "active_record"
 
 require_relative "quick_read/version"
+require_relative "quick_read/railtie" if defined?(Rails)
 
 module ActiveRecord
   module QuickRead
@@ -15,7 +16,42 @@ module ActiveRecord
     #
     # @param [ActiveRecord::Base] model - class to get Lite functionality
     def self.extended(model)
+      super
+      return if !model.table_name || model.abstract_class
+
+      QuickRead.define_lite_struct(model)
+    end
+
+    def self.models
+      @models ||= []
+    end
+
+    def self.define_lite_structs
+      return if QuickRead.models.empty?
+
+      ActiveRecord::Base.logger.debug("QuickRead") { "Defining #{QuickRead.models.size} quick models" }
+      time = Benchmark.realtime do
+        while model = models.pop
+          define_lite_struct(model)
+        end
+      end
+      ActiveRecord::Base.logger.debug("QuickRead") { "Defining quick models took #{time.round(4)}s" }
+    end
+
+    def self.define_lite_struct(model)
       model.const_set(:Lite, Struct.new(*model.column_names.map(&:to_sym)) { include(LiteBase) })
+    end
+
+    #
+    # !!! Extension for the model class
+    #
+
+    # This would be used when extended onto the ApplicationRecord, which many models inherit from
+    # Add the model to the queue to be run after initialization, since the models aren't fully defined yet
+    # wait until connections are available, after rails init
+    def inherited(model)
+      QuickRead.models << model
+      super
     end
 
     def quick_build(attrs = {})
