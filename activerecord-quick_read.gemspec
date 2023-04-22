@@ -4,7 +4,7 @@ require_relative "lib/activerecord/quick_read/version"
 
 Gem::Specification.new do |spec|
   spec.name = "activerecord-quick_read"
-  spec.version = Activerecord::QuickRead::VERSION
+  spec.version = ActiveRecord::QuickRead::VERSION
   spec.authors = ["Ryan Buckley"]
   spec.email = ["ridiculous@hey.com"]
 

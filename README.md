@@ -1,4 +1,4 @@
-# Activerecord::QuickRead
+# ActiveRecord::QuickRead
 
 Makes rails go _faster_. Improve read times 4x!
 
@@ -21,13 +21,13 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-Use `#quick_reads` on your ActiveRecord relations (or `#quick_read` to limit 1)
+Use `#quick_read` on your ActiveRecord relations (or `#quick_reads` for all scoped records)
 Use `#quick_build` on your ActiveRecord models
 
 First, add quickness to your model:
 ```
 class Report < ApplicationRecord
-  extend QuickReads
+  extend ActiveRecord::QuickRead
 end
 ```
 
@@ -67,4 +67,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Activerecord::QuickRead project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/activerecord-quick_read/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the ActiveRecord::QuickRead project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/activerecord-quick_read/blob/main/CODE_OF_CONDUCT.md).

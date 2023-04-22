@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe Activerecord::QuickRead do
+RSpec.describe ActiveRecord::QuickRead do
   it "has a version number" do
-    expect(Activerecord::QuickRead::VERSION).not_to be nil
+    expect(ActiveRecord::QuickRead::VERSION).not_to be nil
   end
 
   it "does something useful" do
